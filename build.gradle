@@ -1,0 +1,18 @@
+plugins {
+    id 'application'
+    id "com.github.johnrengelman.shadow" version "6.1.0"
+    // id 'org.kordamp.gradle.yguard' version '0.4.0'
+
+}
+
+group 'org.sunproject.palaconverter'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+
+application {
+    mainClassName = "fr.theo79.palatojar.PalaMain"
+}
