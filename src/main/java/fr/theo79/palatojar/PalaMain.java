@@ -1,23 +1,46 @@
 package fr.theo79.palatojar;
 
+import fr.theo79.palatojar.ui.PalaConverterUi;
+import javafx.application.Application;
+
+import java.awt.*;
+import java.io.Console;
 import java.io.File;
 
 public class PalaMain {
+
+    private static final String appName = "PalaConverter";
+    private static final String appVersion = "2.0.0";
+
     public static void main(String[] args) throws Exception {
 
         final File curApp = new File(PalaMain.class.getProtectionDomain().getCodeSource().getLocation().getFile());
+        final Console console = System.console();
 
-        if (args.length <= 1) {
-            System.out.println("----[ HELP ] ----\n");
-            System.out.println("just type java -jar " + curApp.getName() + " file.jar <ActionType:encrypt|decrypt>\n");
-            System.out.println("---- [ by Theo79 ] ----\n");
-            System.exit(1);
-        } else {
-
-            if (!args[0].isEmpty()) {
+        if (console != null) {
+            if (args.length > 0 && args[0].equals("gui")) Application.launch(PalaConverterUi.class);
+            else if (args.length <= 1) {
+                System.out.println("You need to type java -jar " + curApp.getName() + " file.jar <ActionType:encrypt|decrypt>\n");
+                System.out.println("gui : launch the gui.");
+                System.out.println("encrypt : convert the given jar file to pala file.");
+                System.out.println("decrypt : convert the given pala file to jar file.");
+                System.out.println("\nMade with love, by Theo79 - " + appName + "@" + appVersion);
+                System.exit(1);
+            } else {
                 PalaConverter palaConverter = new PalaConverter(new File(args[0]));
-                if (!args[1].isEmpty()) palaConverter.aesEncoder(ActionType.valueOf(args[1].toUpperCase()));
+                palaConverter.aesEncoder(ActionType.valueOf(args[1].toUpperCase()));
             }
+
+        } else if (!GraphicsEnvironment.isHeadless()) {
+            Application.launch(PalaConverterUi.class);
         }
+    }
+
+    public static String getAppName() {
+        return appName;
+    }
+
+    public static String getAppVersion() {
+        return appVersion;
     }
 }

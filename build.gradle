@@ -5,14 +5,22 @@ plugins {
 
 }
 
-group 'org.sunproject.palaconverter'
-version '1.0-SNAPSHOT'
+group 'fr.theo79.palatojar'
+version '2.0.0'
+
 
 repositories {
     mavenCentral()
 }
 
-
 application {
     mainClassName = "fr.theo79.palatojar.PalaMain"
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
+}
+
+compileJava.options.encoding = 'UTF-8'
+
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
 }

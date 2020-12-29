@@ -24,7 +24,7 @@ public class PalaConverter
         if (!file.exists()) throw new FileNotFoundException();
         if (file.getName().endsWith(".jar") || file.getName().endsWith(".pala")) {
 
-            try (OutputStream out = new FileOutputStream(file.getName() +
+            try (OutputStream out = new FileOutputStream( file.getAbsolutePath() +
                     (actionType.equals(ActionType.DECRYPT) ? ".jar" : ".pala"))) {
 
                 String str = new String(Base64.getDecoder().decode(dbitKey(immutableKey)));
