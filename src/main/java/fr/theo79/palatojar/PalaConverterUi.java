@@ -1,4 +1,4 @@
-package fr.theo79.palatojar.ui;
+package fr.theo79.palatojar;
 
 import fr.theo79.palatojar.ActionType;
 import fr.theo79.palatojar.PalaConverter;
@@ -12,6 +12,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
+import javax.swing.*;
 import java.io.File;
 
 public class PalaConverterUi extends Application {
@@ -21,6 +22,11 @@ public class PalaConverterUi extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
+        try {
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException classNotFoundException) {
+            classNotFoundException.printStackTrace();
+        }
         defaultStage = primaryStage;
 
         Parent root = FXMLLoader.load(getClass().getResource("/ui/PalaConverterUi.fxml"));
@@ -39,20 +45,22 @@ public class PalaConverterUi extends Application {
 
     }
 
-    public static void openFile(ActionType actionType) {
+    public static boolean openFile(ActionType actionType) {
         FileChooser chooser = new FileChooser();
         chooser.setTitle("Select the Pala-Mod File to " + actionType.toString().toLowerCase() + " ...");
-        chooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Pala-Mod files and Jars Files", "*.pala", "*.jar"));
-        mainScene.setCursor(Cursor.WAIT);
+        chooser.getExtensionFilters().add(new FileChooser.ExtensionFilter( actionType.equals(ActionType.DECRYPT) ? "Pala-Mod files " : "Jars Files",
+                actionType.equals(ActionType.DECRYPT) ? "*.pala" : "*.jar"));
+
         File selectedFile = chooser.showOpenDialog(defaultStage);
         if (selectedFile != null) {
             try {
                 new PalaConverter(selectedFile).aesEncoder(actionType);
+                return true;
             } catch (Exception e) {
                 e.printStackTrace();
             }
         }
-        mainScene.setCursor(null);
+        return false;
     }
 
 }

@@ -14,7 +14,7 @@ public class PalaConverter
     private File file;
 
 
-    public PalaConverter(File srcFile) {
+    protected PalaConverter(File srcFile) {
         file = srcFile;
     }
 

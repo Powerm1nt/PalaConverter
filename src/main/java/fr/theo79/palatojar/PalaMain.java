@@ -1,6 +1,5 @@
 package fr.theo79.palatojar;
 
-import fr.theo79.palatojar.ui.PalaConverterUi;
 import javafx.application.Application;
 
 import java.awt.*;
@@ -10,7 +9,7 @@ import java.io.File;
 public class PalaMain {
 
     private static final String appName = "PalaConverter";
-    private static final String appVersion = "2.0.0";
+    private static final String appVersion = "2.1.0";
 
     public static void main(String[] args) throws Exception {
 
@@ -36,11 +35,11 @@ public class PalaMain {
         }
     }
 
-    public static String getAppName() {
+    protected static String getAppName() {
         return appName;
     }
 
-    public static String getAppVersion() {
+    protected static String getAppVersion() {
         return appVersion;
     }
 }
