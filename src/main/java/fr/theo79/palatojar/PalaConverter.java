@@ -35,7 +35,7 @@ public class PalaConverter
         } else throw new Exception("Please use a .jar or .pala file.");
     }
 
-    private String dbitKey(final String q) {
+    public String dbitKey(final String q) {
         final byte[] a = q.getBytes();
         final byte[] b = { 24, 32, 64, 70 };
 
