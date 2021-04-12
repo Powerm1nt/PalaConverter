@@ -10,7 +10,7 @@ import java.util.Base64;
 public class PalaMain {
 
     private static final String appName = "PalaConverter";
-    private static final String appVersion = "2.1.0";
+    private static final String appVersion = "2.1.1";
 
     public static void main(String[] args) throws Exception {
 
@@ -34,10 +34,6 @@ public class PalaMain {
         } else if (!GraphicsEnvironment.isHeadless()) {
             Application.launch(PalaConverterUi.class);
         }
-
-        PalaConverter palac = new PalaConverter(new File("."));
-
-        System.out.println(new String(Base64.getDecoder().decode(palac.dbitKey("I02OK,O64b%R7+s:5Qs84R-P7R-75,!6"))));
     }
 
     protected static String getAppName() {

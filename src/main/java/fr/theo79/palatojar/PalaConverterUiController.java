@@ -35,12 +35,12 @@ public class PalaConverterUiController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        chooseAction.getItems().addAll("ENCRYPT","DECRYPT");
+        chooseAction.getItems().addAll("DECRYPT","ENCRYPT");
         chooseAction.getSelectionModel().select(0);
         chooseAction.setStyle("-fx-font-size: 12.0; -fx-font-weight: bold;");
         chooseAction.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue.equals("ENCRYPT")) setDefaultAction(ActionType.ENCRYPT);
-            else setDefaultAction(ActionType.DECRYPT);
+            else if (newValue.equals("DECRYPT")) setDefaultAction(ActionType.DECRYPT);
         });
 
         AtomicReference<String> textOldValue = new AtomicReference<>();
@@ -48,37 +48,8 @@ public class PalaConverterUiController implements Initializable {
         chooseFile.textProperty().addListener((observable, oldValue, newValue) -> textOldValue.set(oldValue));
 
 
-        Task<Void> waitTime = new Task<Void>() {
-            @Override
-            protected Void call() throws Exception {
 
-                Platform.runLater(() -> {
-                    chooseFile.setStyle("-fx-background-color: #19c800;");
-                    chooseFile.setText("Done ✅");
-                });
-
-
-                Thread.sleep(2000);
-                return null;
-            }
-        };
-
-        waitTime.setOnSucceeded(event -> {
-            chooseFile.setText(textOldValue.get());
-            chooseFile.setStyle(chooseFile.getStyle().replace("-fx-background-color: #19c800;", ""));
-            chooseFile.setDisable(false);
-            chooseAction.setDisable(false);
-        });
-
-        chooseFile.addEventHandler(ActionEvent.ACTION, e -> {
-            chooseFile.setDisable(true);
-            chooseAction.setDisable(true);
-            if (PalaConverterUi.openFile(getDefaultAction())) new Thread(waitTime).start();
-            else {
-                chooseFile.setDisable(false);
-                chooseAction.setDisable(false);
-            }
-        });
+        chooseFile.addEventHandler(ActionEvent.ACTION, e -> PalaConverterUi.openFile(getDefaultAction()));
 
 
         chooseFile.setStyle("-fx-font-size: 13.0;");

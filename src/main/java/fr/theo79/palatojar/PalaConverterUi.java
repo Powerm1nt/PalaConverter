@@ -55,10 +55,10 @@ public class PalaConverterUi extends Application {
         if (selectedFile != null) {
             try {
                 new PalaConverter(selectedFile).aesEncoder(actionType);
-                return true;
             } catch (Exception e) {
                 e.printStackTrace();
             }
+            return true;
         }
         return false;
     }
