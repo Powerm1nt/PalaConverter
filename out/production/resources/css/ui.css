@@ -1,7 +1,0 @@
-@font-face {
-    src: url("/fonts/CascadiaCode.ttf");
-}
-
-* {
-    -fx-font-family: "Cascadia Code Regular";
-}
